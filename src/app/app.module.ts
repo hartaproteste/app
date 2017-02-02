@@ -4,9 +4,8 @@ import { Logger } from 'angular2-logger/core';
 import { MyApp } from './app.component';
 import { HttpClient } from '../base';
 import {
-  AboutPage,
-  ContactPage,
-  HomePage
+  HomePage,
+  MapPage
 } from '../pages';
 import { CONFIG_TOKEN, Config } from '../providers/config';
 import { LoggerService } from '../providers/logger.service';
@@ -16,9 +15,8 @@ import { MapService } from '../providers/map.service';
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
-    ContactPage,
-    HomePage
+    HomePage,
+    MapPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -26,9 +24,8 @@ import { MapService } from '../providers/map.service';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AboutPage,
-    ContactPage,
-    HomePage
+    HomePage,
+    MapPage
   ],
   providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler },
     { provide: CONFIG_TOKEN, useValue: Config },
