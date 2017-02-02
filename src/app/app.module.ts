@@ -2,6 +2,7 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { Logger } from 'angular2-logger/core';
 import { MyApp } from './app.component';
+import { HttpClient } from '../base';
 import {
   AboutPage,
   ContactPage,
@@ -33,7 +34,8 @@ import { MapService } from '../providers/map.service';
     { provide: CONFIG_TOKEN, useValue: Config },
     Logger,
     LoggerService,
-    MapService
+    MapService,
+    HttpClient
   ]
 })
 export class AppModule { }

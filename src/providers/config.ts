@@ -7,7 +7,7 @@ export interface IConfig {
 
 export const Config : IConfig = {
   logLevel: 'DEBUG',
-  url: 'http://localhost:8100/api'
+  url: 'http://138.68.99.250:1989'
   //url: 'https://[]'
 }
 
