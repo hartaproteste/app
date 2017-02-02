@@ -1,6 +1,5 @@
 ﻿import { Injectable, Inject } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
-// import { RssChannels, RssChannel, RssFeed, RssFeedItem, RssChannelGroup } from '../models/index';
 import { CONFIG_TOKEN, IConfig } from './config';
 import { LoggerService } from './logger.service';
 
@@ -22,10 +21,10 @@ export class MapService {
 
   public getCities(): Array<any> {
     let resp = new Array<any>();
-    resp.push([
+    resp.push(
       { name: "Bucuresti", value: 125000 },
       { name: "Brasov", value: 10000 }
-    ]);
+    );
     return resp;
   }
 }
