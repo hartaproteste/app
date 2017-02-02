@@ -18,11 +18,7 @@ export class MapPage {
   }
 
   initializeItems() {
-    this.mapService.getCities().then(list => {
-      this.items = list;
-    }, rejected => {
-      alert(rejected);
-    });
+      this.items = this.mapService.getCities();
   }
 
   getItems(ev: any) {
