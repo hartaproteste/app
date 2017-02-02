@@ -1,0 +1,19 @@
+﻿<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Harta Proteste</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-searchbar (ionInput)="getItems($event)" [showCancelButton]="True"></ion-searchbar>
+  <ion-list no-lines>
+    <ion-item *ngFor="let item of items">
+      <ion-icon name="pin" item-left></ion-icon>
+      <span item-left class="name">{{ item.name }}</span>
+      <span item-right>{{ item.value | number: '1.0-0' }}</span>
+    </ion-item>
+  </ion-list>
+</ion-content>
