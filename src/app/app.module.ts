@@ -1,18 +1,23 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { Logger } from 'angular2-logger/core';
 import { MyApp } from './app.component';
-import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
-import { HomePage } from '../pages/home/home';
-import { TabsPage } from '../pages/tabs/tabs';
+import {
+  AboutPage,
+  ContactPage,
+  HomePage
+} from '../pages';
+import { CONFIG_TOKEN, Config } from '../providers/config';
+import { LoggerService } from '../providers/logger.service';
+
+import { MapService } from '../providers/map.service';
 
 @NgModule({
   declarations: [
     MyApp,
     AboutPage,
     ContactPage,
-    HomePage,
-    TabsPage
+    HomePage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -22,9 +27,13 @@ import { TabsPage } from '../pages/tabs/tabs';
     MyApp,
     AboutPage,
     ContactPage,
-    HomePage,
-    TabsPage
+    HomePage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
+  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler },
+    { provide: CONFIG_TOKEN, useValue: Config },
+    Logger,
+    LoggerService,
+    MapService
+  ]
 })
-export class AppModule {}
+export class AppModule { }

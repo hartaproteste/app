@@ -1,11 +1,15 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>
-      About
-    </ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>About</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-
+  <div *ngFor="let city of list">
+    <span>{{ city.name }}</span>
+    <span> {{ city.value }}</span>
+  </div>
 </ion-content>
