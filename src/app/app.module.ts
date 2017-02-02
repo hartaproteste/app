@@ -5,8 +5,7 @@ import { MyApp } from './app.component';
 import {
   AboutPage,
   ContactPage,
-  HomePage,
-  TabsPage
+  HomePage
 } from '../pages';
 import { CONFIG_TOKEN, Config } from '../providers/config';
 import { LoggerService } from '../providers/logger.service';
@@ -16,8 +15,7 @@ import { LoggerService } from '../providers/logger.service';
     MyApp,
     AboutPage,
     ContactPage,
-    HomePage,
-    TabsPage
+    HomePage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -27,8 +25,7 @@ import { LoggerService } from '../providers/logger.service';
     MyApp,
     AboutPage,
     ContactPage,
-    HomePage,
-    TabsPage
+    HomePage
   ],
   providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler },
     { provide: CONFIG_TOKEN, useValue: Config },
