@@ -10,6 +10,8 @@ import {
 import { CONFIG_TOKEN, Config } from '../providers/config';
 import { LoggerService } from '../providers/logger.service';
 
+import { MapService } from '../providers/map.service';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -30,7 +32,8 @@ import { LoggerService } from '../providers/logger.service';
   providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler },
     { provide: CONFIG_TOKEN, useValue: Config },
     Logger,
-    LoggerService
+    LoggerService,
+    MapService
   ]
 })
 export class AppModule { }

@@ -8,5 +8,8 @@
 </ion-header>
 
 <ion-content padding>
-
+  <div *ngFor="let city in list">
+    <span>{{ city.name }}</span>
+    <span> {{ city.value }}</span>
+  </div>
 </ion-content>
