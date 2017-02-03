@@ -1,4 +1,4 @@
-﻿import { Component, Inject } from '@angular/core';
+﻿import { Component, Inject, Renderer } from '@angular/core';
 import { HttpClient } from '../../base';
 import { NavController } from 'ionic-angular';
 import { MapService } from '../../providers/map.service';
@@ -13,9 +13,10 @@ export class MapPage {
 
   items: Array<any>;
   total: number;
+  selectedValue: string;
 
 
-  constructor(public navCtrl: NavController, private http: HttpClient,  private mapService: MapService) {
+  constructor(public navCtrl: NavController, private http: HttpClient, private mapService: MapService, private renderer: Renderer) {
     this.initializeItems();
   }
 
@@ -41,10 +42,27 @@ export class MapPage {
 
     // if the value is an empty string don't filter the items
     if (val && val.trim() != '') {
-      this.items = this.items.filter((item) => {
-        return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
-      })
+      this.selectedValue = val;
+      this.filterItems();
     }
+  }
+
+  filterItems() {
+    if (this.selectedValue) {
+      this.items = this.items.filter((item) => {
+        return (item.name.toLowerCase().indexOf(this.selectedValue.toLowerCase()) > -1);
+      });
+    }
+  }
+
+  hitEnter() {
+    this.renderer.invokeElementMethod(event.target, 'blur');
+  }
+
+  doRefresh(refresher) {
+    this.initializeItems();
+    this.filterItems();
+    refresher.complete();
   }
 
   back() {
