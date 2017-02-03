@@ -9,7 +9,7 @@ import {
   HomePage
 } from '../pages';
 import { CONFIG_TOKEN, Config } from '../providers/config';
-import { LoggerService } from '../providers/logger.service';
+import { LoggerService, ProtestService } from '../providers';
 
 import { MapService } from '../providers/map.service';
 
@@ -35,7 +35,8 @@ import { MapService } from '../providers/map.service';
     Logger,
     LoggerService,
     MapService,
-    HttpClient
+    HttpClient,
+    ProtestService
   ]
 })
 export class AppModule { }
