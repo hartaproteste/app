@@ -65,10 +65,20 @@
     @include linear-gradient(#ff6b1b - 50, #e9c74b);
 }
 
-.button-inner {
-    font-weight: bold;
+.main-hero {
+    background: url(../assets/images/protest.jpg);
+    background-size: cover;
+    height: 120px;
+    margin-bottom: 10px;
 }
 
-.secondary-btn {
-    border: solid 1px rgb(51,51,51);
+.background-gradient {
+    //@include linear-gradient(#ff6b1b, #e9c74b);
+        background:url(../assets/images/bg.png); 
+    background-position: center 200px;
 }
+.toolbar-background {
+    background-color:#0066ff;
+    color:#FFFFFF
+}
+.toolbar-title, .bar-buttons { color:#FFFFFF }

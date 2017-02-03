@@ -1,7 +1,7 @@
 ﻿<ion-header>
   <ion-navbar>
     <ion-title>Harta Proteste</ion-title>
-    <button ion-button menuToggle>
+    <button ion-button menuToggle right>
       <ion-icon name="menu"></ion-icon>
     </button>
 
@@ -17,7 +17,7 @@
                            refreshingText="Se actualizează...">
     </ion-refresher-content>
   </ion-refresher>
-  <img src="../assets/images/map_romania.png" />
+  <img src="assets/images/map_romania.png" />
   <div class="searchbar-wrapper">
     <ion-searchbar (ionInput)="getItems($event)" [showCancelButton]="True" (keyup.enter)="hitEnter()" placeholder="Caută localitate..."></ion-searchbar>
   </div>
@@ -39,5 +39,5 @@
       {{ total | number: '1.0-0' }}
     </ion-col>
   </ion-row>
-  <button ion-button color="secondary" (click)="back()" full class="secondary-btn">Înapoi</button>
+  <button ion-button round class="btn-back" (click)="back()" block outline>Înapoi</button>
 </ion-footer>

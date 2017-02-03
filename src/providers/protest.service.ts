@@ -15,8 +15,11 @@ export class ProtestService {
   private interval: number;
   private refreshStatusInterval: number;
   private hasHttpError: boolean = false;
+  public queue: any[] = [];
 
   constructor(private http: HttpClient, @Inject(CONFIG_TOKEN) private config: IConfig, private zone: NgZone) {
+    if (localStorage['queue'])
+      this.queue = JSON.parse(localStorage['queue']);
   }
 
   checkInNow(shout: string) {
@@ -29,11 +32,11 @@ export class ProtestService {
         lat: resp.coords.latitude,
         lon: resp.coords.longitude,
         prec: resp.coords.accuracy,
-        shout: shout,
+        msg: shout,
         ts: new Date().getTime() / 1000,
         uid: uuid
       };
-
+console.log(data);
       this.checkIn(data);
     });
   }
@@ -50,6 +53,7 @@ export class ProtestService {
           this.refreshStatusInterval = setInterval(()=>this.refreshCurrentEvent(), this.config.refreshStatusInterval*1000);
       }},
       err => {
+        console.log(data);
         this.handleError(data)
       }
       )
@@ -67,11 +71,11 @@ export class ProtestService {
   }
   private handleError(data) {
     this.hasHttpError = true;
+    console.log(data);
     if (localStorage['queue']) {
-      let queue: any[] = JSON.parse(localStorage['queue']);
-      if (!queue.find(itm => itm.uuid === data.uuid && itm.ts === data.ts)) {
-        queue.push(data);
-        localStorage['queue'] = JSON.stringify(queue);
+      if (!this.queue.find(itm => itm.uid === data.uid && itm.ts === data.ts)) {
+        this.queue.push(data);
+        localStorage['queue'] = JSON.stringify(this.queue);
         if (!this.interval)
           this.interval = setInterval(() => {
             this.processQueue();
@@ -87,19 +91,24 @@ export class ProtestService {
     }
   }
 
+  public resetCurrent() {
+    this.currentProtest = { id:1 };
+    clearInterval(this.refreshStatusInterval);
+    this.refreshStatusInterval = undefined;
+  }
+
   public processQueue() {
-    console.log(localStorage['queue']);
     if (localStorage['queue']) {
       this.hasHttpError = false;
-      let queue: any[] = JSON.parse(localStorage['queue']);
       //ping the service
-      this.checkIn(queue[0]).subscribe(res => {
-        queue.splice(0, 1);
-        queue.forEach(data => {
+      this.checkIn(this.queue[0]).subscribe(res => {
+        this.queue.splice(0, 1);
+        this.queue.forEach(data => {
           this.checkIn(data);
         });
         clearInterval(this.interval);
         this.interval = undefined;
+        this.queue=[];
         localStorage.removeItem('queue');
 
       });

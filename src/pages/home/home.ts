@@ -13,29 +13,19 @@ import { MapPage } from '../index';
 })
 export class HomePage {
 
-
   private shout: string;
   constructor(public navCtrl: NavController, private http: HttpClient, private protestService: ProtestService) {
 
   }
 
   checkIn(){
-    if (!localStorage['uuid'])
-      localStorage['uuid'] = Device.uuid ? Device.uuid : UUID.UUID();
-    let uuid = localStorage['uuid'];
-    uuid = btoa(CryptoJS.AES.encrypt(uuid, 'NOWEIMFElmmWJKnwKEJFWNwkjEWNPOF').ciphertext.toString());
-    Geolocation.getCurrentPosition().then((resp) => {
-      var data = {
-        lat: resp.coords.latitude,
-        lon: resp.coords.longitude,
-        prec: resp.coords.accuracy,
-        shout: this.shout,
-        ts: new Date().getTime()/1000,
-        uid: uuid
-      };
+    
+      this.protestService.checkInNow(this.shout);
+  }
 
-      this.protestService.checkIn(data);
-    });
+  clearProtest()
+  {
+    this.protestService.resetCurrent();
   }
 
   viewMap() {

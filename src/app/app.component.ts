@@ -27,7 +27,6 @@ export class MyApp {
       StatusBar.styleDefault();
       Splashscreen.hide();
       
-      if (localStorage['queue'])
         this.protestService.processQueue();
     });
 

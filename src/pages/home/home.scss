@@ -1,5 +1,8 @@
-h4 {
-    color: #0066ff;
+h3 {
+    color: #000000;
+    font-weight:bold;
+    font-size:24pt;
+    margin-bottom: 0px;
 }
 
 .main-body {
@@ -31,13 +34,27 @@ p {
     color: #333333;
 }
 
-.main-hero {
-    background: url(../assets/images/protest.jpg);
-    background-size: cover;
-    height: 150px;
-    margin-bottom: 10px;
+.subtitle{ font-size:16pt; color:#333333; margin-bottom:20px }
+.button-inner {
+    font-weight: bold;
 }
 
-.background-gradient.home {
-    @include linear-gradient(#ff6b1b, #e9c74b);
+.secondary-btn {
+    border: solid 1px rgb(51,51,51);
+}
+
+.btn-participa {
+    height:50px;
+    font-size:18px;
+}
+.shout textarea {
+    font-size: 20px;
+}
+.main-body .info img { 
+    padding-top:0px;
+    max-height:150px
+ }
+
+.main-body .info { 
+    height:initial
 }
