@@ -1,9 +1,6 @@
 ﻿
 page-map {
-    .background-list {
-        //background-color: rgba(233,199,75,1);
-        @include linear-gradient(#ff6b1b - 50, #e9c74b);
-    }
+
 
     .list-ios, .list-wp, .list-md {
         padding-left: 16px;
@@ -44,9 +41,7 @@ page-map {
         }
     }
 
-    .secondary-btn {
-      border: solid 1px rgb(51,51,51);
-    }
+
 
     .has-refresher > .scroll-content {
       border-top: none;

@@ -15,43 +15,60 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
-@mixin linear-gradient($pos, $g1, $g2: null,
-                       $g3: null, $g4: null,
-                       $g5: null, $g6: null,
-                       $g7: null, $g8: null,
-                       $g9: null, $g10: null,
-                       $fallback: null) {
-  // Detect what type of value exists in $pos
-  $pos-type: type-of(nth($pos, 1));
-  $pos-spec: null;
-  $pos-degree: null;
+@mixin linear-gradient($pos, $g1, $g2: null, $g3: null, $g4: null, $g5: null, $g6: null, $g7: null, $g8: null, $g9: null, $g10: null, $fallback: null) {
+    // Detect what type of value exists in $pos
+    $pos-type: type-of(nth($pos, 1));
+    $pos-spec: null;
+    $pos-degree: null;
 
-  // If $pos is missing from mixin, reassign vars and add default position
-  @if ($pos-type == color) or (nth($pos, 1) == "transparent")  {
-    $g10: $g9; $g9: $g8; $g8: $g7; $g7: $g6; $g6: $g5;
-    $g5: $g4; $g4: $g3; $g3: $g2; $g2: $g1; $g1: $pos;
-    $pos: null;
-  }
+    // If $pos is missing from mixin, reassign vars and add default position
+    @if ($pos-type == color) or (nth($pos, 1) == "transparent") {
+        $g10: $g9;
+        $g9: $g8;
+        $g8: $g7;
+        $g7: $g6;
+        $g6: $g5;
+        $g5: $g4;
+        $g4: $g3;
+        $g3: $g2;
+        $g2: $g1;
+        $g1: $pos;
+        $pos: null;
+    }
 
-  @if $pos {
-    $positions: _linear-positions-parser($pos);
-    $pos-degree: nth($positions, 1);
-    $pos-spec:   nth($positions, 2);
-  }
+    @if $pos {
+        $positions: _linear-positions-parser($pos);
+        $pos-degree: nth($positions, 1);
+        $pos-spec: nth($positions, 2);
+    }
 
-  $full: $g1, $g2, $g3, $g4, $g5, $g6, $g7, $g8, $g9, $g10;
+    $full: $g1, $g2, $g3, $g4, $g5, $g6, $g7, $g8, $g9, $g10;
 
-  // Set $g1 as the default fallback color
-  $fallback-color: nth($g1, 1);
+    // Set $g1 as the default fallback color
+    $fallback-color: nth($g1, 1);
 
-  // If $fallback is a color use that color as the fallback color
-  @if (type-of($fallback) == color) or ($fallback == "transparent") {
-    $fallback-color: $fallback;
-  }
+    // If $fallback is a color use that color as the fallback color
+    @if (type-of($fallback) == color) or ($fallback == "transparent") {
+        $fallback-color: $fallback;
+    }
 
-  background-color: $fallback-color;
-  background: -webkit-linear-gradient($pos-degree $full); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient($pos-degree $full); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient($pos-degree $full); /* For Firefox 3.6 to 15 */
-  background: linear-gradient($pos-degree $full);
+    background-color: $fallback-color;
+    background: -webkit-linear-gradient($pos-degree $full); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient($pos-degree $full); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient($pos-degree $full); /* For Firefox 3.6 to 15 */
+    background: linear-gradient($pos-degree $full);
+}
+
+
+.background-gradient {
+    //background-color: rgba(233,199,75,1);
+    @include linear-gradient(#ff6b1b - 50, #e9c74b);
+}
+
+.button-inner {
+    font-weight: bold;
+}
+
+.secondary-btn {
+    border: solid 1px rgb(51,51,51);
 }
