@@ -1,41 +1,35 @@
 ﻿<ion-header>
   <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
     <ion-title>Harta Proteste</ion-title>
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
 
   </ion-navbar>
-  <img src="/assets/images/map_romania.png" style="width: 50%" />
-  <ion-searchbar (ionInput)="getItems($event)" [showCancelButton]="True"></ion-searchbar>
+  <img src="/assets/images/map_romania.png" />
+  <div class="searchbar-wrapper">
+    <ion-searchbar (ionInput)="getItems($event)" [showCancelButton]="True"></ion-searchbar>
+  </div>
 </ion-header>
 
-
-
-<ion-content padding>
-  <ion-list no-lines>
-    <ion-item *ngFor="let item of items">
-      <ion-icon name="pin" item-left></ion-icon>
-      <span item-left class="name">{{ item.name }}</span>
-      <span item-right>{{ item.value | number: '1.0-0' }}</span>
-    </ion-item>
-  </ion-list>
+<ion-content class="background-list" scroll="false">
+    <ion-list no-lines scroll>
+      <ion-item *ngFor="let item of items" class="city-item">
+        <ion-icon name="pin" item-left></ion-icon>
+        <span item-left class="name">{{ item.name }}</span>
+        <span item-right class="value">{{ item.value | number: '1.0-0' }}</span>
+      </ion-item>
+    </ion-list>
 </ion-content>
+
 <ion-footer>
   <ion-row class="total-row">
     <ion-col width-50 text-left>
       TOTAL RO
     </ion-col>
-    <ion-col width-50 text-right>
+    <ion-col width-50 text-right class="value">
       {{ total | number: '1.0-0' }}
     </ion-col>
   </ion-row>
-  <ion-row>
-    <ion-col width-100>
-      <button ion-button color="secondary" (click)="back()" full>Înapoi</button>
-    </ion-col>
-  </ion-row>
+  <button ion-button color="secondary" (click)="back()" full class="secondary-btn">Înapoi</button>
 </ion-footer>

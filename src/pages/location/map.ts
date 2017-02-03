@@ -3,6 +3,7 @@ import { HttpClient } from '../../base';
 import { NavController } from 'ionic-angular';
 import { MapService } from '../../providers/map.service';
 import { CONFIG_TOKEN, IConfig } from '../../providers/config';
+import { HomePage } from '../index';
 
 @Component({
   selector: 'page-map',
@@ -47,6 +48,6 @@ export class MapPage {
   }
 
   back() {
-    this.navCtrl.pop();
+    this.navCtrl.setRoot(HomePage);
   }
 }
