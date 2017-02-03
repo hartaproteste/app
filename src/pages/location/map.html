@@ -6,10 +6,7 @@
     </button>
 
   </ion-navbar>
-  <img src="../assets/images/map_romania.png" />
-  <div class="searchbar-wrapper">
-    <ion-searchbar (ionInput)="getItems($event)" [showCancelButton]="True" (keyup.enter)="hitEnter()" placeholder="Caută localitate..."></ion-searchbar>
-  </div>
+
 </ion-header>
 
 <ion-content class="background-list" scroll="false">
@@ -20,6 +17,10 @@
                            refreshingText="Se actualizează...">
     </ion-refresher-content>
   </ion-refresher>
+  <img src="../assets/images/map_romania.png" />
+  <div class="searchbar-wrapper">
+    <ion-searchbar (ionInput)="getItems($event)" [showCancelButton]="True" (keyup.enter)="hitEnter()" placeholder="Caută localitate..."></ion-searchbar>
+  </div>
     <ion-list no-lines scroll>
       <ion-item *ngFor="let item of items" class="city-item">
         <ion-icon name="pin" item-left></ion-icon>
