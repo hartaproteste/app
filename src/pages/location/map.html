@@ -4,11 +4,18 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Harta Proteste</ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
   </ion-navbar>
+  <img src="/assets/images/map_romania.png" style="width: 50%" />
+  <ion-searchbar (ionInput)="getItems($event)" [showCancelButton]="True"></ion-searchbar>
 </ion-header>
 
+
+
 <ion-content padding>
-  <ion-searchbar (ionInput)="getItems($event)" [showCancelButton]="True"></ion-searchbar>
   <ion-list no-lines>
     <ion-item *ngFor="let item of items">
       <ion-icon name="pin" item-left></ion-icon>
@@ -17,3 +24,18 @@
     </ion-item>
   </ion-list>
 </ion-content>
+<ion-footer>
+  <ion-row class="total-row">
+    <ion-col width-50 text-left>
+      TOTAL RO
+    </ion-col>
+    <ion-col width-50 text-right>
+      {{ total | number: '1.0-0' }}
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col width-100>
+      <button ion-button color="secondary" (click)="back()" full>Înapoi</button>
+    </ion-col>
+  </ion-row>
+</ion-footer>
