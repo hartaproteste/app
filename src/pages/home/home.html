@@ -7,7 +7,8 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding style="background: #EEEEEE">
+<ion-content>
+  <div class="main-hero"></div>
   <div class="main-body" text-center *ngIf="this.protestService.currentProtest.id==0">
         <h2>PROTESTEZI ALATURI DE</h2>
         {{this.protestService.currentProtest.size}} persoane<br />
@@ -15,9 +16,10 @@
         <button ion-button color="danger" (click)="viewMap()">Am plecat de la acest protest</button>     
   </div>
   <div class="main-body" text-center *ngIf="this.protestService.currentProtest.id>0">
-    <h4>Este dreptul tau sa protestezi!</h4>
+    <h4>Harta Proteste</h4>
+    <p>
     Participa acum la protest apasand pe butonul de mai jos.
-    Scrie o lozinca si spune ce te deranjeaza. 
+    Scrie o lozinca si spune ce te deranjeaza. </p>
     <br /><br />
     <ion-item>
   <ion-textarea rows="4" [(ngModel)]="shout" placeholder="scrie o lozinca (optional)"></ion-textarea>
