@@ -11,7 +11,8 @@
   <div class="main-body" text-center *ngIf="this.protestService.currentProtest.id==0">
         <h2>PROTESTEZI ALATURI DE</h2>
         {{this.protestService.currentProtest.size}} persoane<br />
-        <button ion-button color="danger" (click)="viewMap()">Vezi harta</button>      
+        <button ion-button color="danger" (click)="viewMap()">Vezi harta</button>  <br />    
+        <button ion-button color="danger" (click)="viewMap()">Am plecat de la acest protest</button>     
   </div>
   <div class="main-body" text-center *ngIf="this.protestService.currentProtest.id>0">
     <h4>Este dreptul tau sa protestezi!</h4>

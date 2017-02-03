@@ -4,12 +4,18 @@ export interface IConfig {
   logLevel: string;
   url: string;
   sample: boolean;
+  refreshStatusInterval: number;
+  offlinePollingInterval: number;
+  autoCheckoutDistance: number;
 }
 
 export const Config : IConfig = {
   logLevel: 'DEBUG',
   url: 'http://138.68.99.250:1989',
-  sample: true
+  sample: true,
+  offlinePollingInterval: 10,
+  refreshStatusInterval: 10,
+  autoCheckoutDistance: 1000,
 }
 
 export const CONFIG_TOKEN = new OpaqueToken('config_mobile');
