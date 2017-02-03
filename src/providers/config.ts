@@ -11,7 +11,7 @@ export interface IConfig {
 
 export const Config : IConfig = {
   logLevel: 'DEBUG',
-  url: 'http://138.68.99.250:1989',
+  url: 'https://api.hartaproteste.ro',
   sample: true,
   offlinePollingInterval: 10,
   refreshStatusInterval: 10,

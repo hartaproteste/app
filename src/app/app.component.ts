@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 import { ProtestService } from '../providers';
@@ -10,7 +10,8 @@ import {
 
 
 @Component({
-  templateUrl: 'app.html'
+  templateUrl: 'app.html',
+  encapsulation: ViewEncapsulation.None
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;

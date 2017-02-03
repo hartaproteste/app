@@ -30,7 +30,10 @@ export class MapService {
         { name: "Sibiu", value: 15396 },
         { name: "Brașov", value: 8194 },
         { name: "Constanța", value: 5468 },
-        { name: "Piatra Neamț", value: 2000 }
+        { name: "Piatra Neamț", value: 2000 },
+        { name: "Vaslui", value: 1253 },
+        { name: "Bicaz", value: 400 },
+        { name: "Tg. Neamt", value: 321 }
       );
     }
 
