@@ -1,8 +1,49 @@
-﻿page-map {
-    .image-header {
-        background: url('/assets/images/map_romania.png');
-        background-repeat: no-repeat;
-        background-size: contain;
-        background-position: center;
+﻿
+page-map {
+    .background-list {
+        //background-color: rgba(233,199,75,1);
+        @include linear-gradient(#ff6b1b - 50, #e9c74b);
+    }
+
+    .list-ios, .list-wp, .list-md {
+        padding-left: 16px;
+        padding-right: 16px;
+        ion-icon {
+          color: rgb(204, 52, 49);
+        }
+        .value {
+          font-weight: bold;
+          font-size: 18px;
+        }
+    }
+
+    .city-item {
+        background-color: rgb(51,51,51);
+        color: white;
+    }
+
+    .searchbar-wrapper {
+        margin-left: 16px;
+        margin-right: 16px;
+        background-color: rgb(51,51,51);
+        margin-top: 6px;
+    }
+
+    ion-footer {
+        padding-left: 16px;
+        padding-right: 16px;
+
+        .total-row {
+            background-color: black;
+            color: white;
+            font-size: 24px;
+            .value {
+              font-weight: bold;
+            }
+        }
+    }
+
+    .secondary-btn {
+      border: solid 1px rgb(51,51,51);
     }
 }

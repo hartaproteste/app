@@ -5,6 +5,7 @@ import { ProtestService } from '../../providers';
 import { Geolocation, Device } from 'ionic-native';
 import { UUID } from 'angular2-uuid';
 import * as CryptoJS from 'crypto-js';
+import { MapPage } from '../index';
 
 @Component({
   selector: 'page-home',
@@ -35,5 +36,9 @@ export class HomePage {
 
       this.protestService.checkIn(data);
     });
+  }
+
+  viewMap() {
+    this.navCtrl.setRoot(MapPage);
   }
 }
