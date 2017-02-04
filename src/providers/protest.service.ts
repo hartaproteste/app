@@ -26,7 +26,7 @@ export class ProtestService {
     if (!localStorage['uuid'])
       localStorage['uuid'] = Device.uuid ? Device.uuid : UUID.UUID();
     let uuid = localStorage['uuid'];
-    uuid = btoa(CryptoJS.SHA256(CryptoJS.AES.encrypt(uuid, 'NOWEIMFElmmWJKnwKEJFWNwkjEWNPOF').ciphertext.toString()));
+    uuid = btoa(CryptoJS.AES.encrypt(uuid, 'NOWEIMFElmmWJKnwKEJFWNwkjEWNPOF').ciphertext.toString());
     Geolocation.getCurrentPosition().then((resp) => {
       let data = {
         lat: resp.coords.latitude,
