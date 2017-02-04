@@ -1,6 +1,6 @@
-﻿import { Component, Inject, Renderer } from '@angular/core';
+﻿import { Component, Inject, Renderer, ViewChild } from '@angular/core';
 import { HttpClient } from '../../base';
-import { NavController } from 'ionic-angular';
+import { NavController, Content } from 'ionic-angular';
 import { MapService } from '../../providers/map.service';
 import { CONFIG_TOKEN, IConfig } from '../../providers/config';
 import { HomePage, LocationMapPage } from '../index';
@@ -8,9 +8,13 @@ import { TermsConditionsPage } from '../';
 
 @Component({
   selector: 'page-map',
-  templateUrl: 'map.html'
+  templateUrl: 'map.html',
+  host: {
+    '(window:resize)': 'changeOrientation($event)'
+  },
 })
 export class MapPage {
+  @ViewChild(Content) content: Content;
 
   items: Array<any>;
   total: number;
@@ -34,13 +38,12 @@ export class MapPage {
     return result;
   }
 
-  openProtestMap(item: any){
+  openProtestMap(item: any) {
 
     this.navCtrl.push(LocationMapPage, { data: item });
   }
 
-  private ionViewCanEnter()
-  {
+  private ionViewCanEnter() {
     if (!localStorage['acceptedtos'])
       this.navCtrl.setRoot(TermsConditionsPage);
   }
@@ -82,16 +85,20 @@ export class MapPage {
   }
 
   removeAccents(str) {
-  var accents = 'ÀÁÂÃÄÅàáâãäåÒÓÔÕÕÖØòóôõöøÈÉÊËèéêëðÇçÐÌÍÎÏìíîïÙÚÛÜùúûüÑñŠšŸÿýŽžăîșțâĂÎȘȚÂ';
-  var accentsOut = "AAAAAAaaaaaaOOOOOOOooooooEEEEeeeeeCcDIIIIiiiiUUUUuuuuNnSsYyyZzaistaAISTA";
-  str = str.split('');
-  var strLen = str.length;
-  var i, x;
-  for (i = 0; i < strLen; i++) {
-    if ((x = accents.indexOf(str[i])) != -1) {
-      str[i] = accentsOut[x];
+    var accents = 'ÀÁÂÃÄÅàáâãäåÒÓÔÕÕÖØòóôõöøÈÉÊËèéêëðÇçÐÌÍÎÏìíîïÙÚÛÜùúûüÑñŠšŸÿýŽžăîșțâĂÎȘȚÂ';
+    var accentsOut = "AAAAAAaaaaaaOOOOOOOooooooEEEEeeeeeCcDIIIIiiiiUUUUuuuuNnSsYyyZzaistaAISTA";
+    str = str.split('');
+    var strLen = str.length;
+    var i, x;
+    for (i = 0; i < strLen; i++) {
+      if ((x = accents.indexOf(str[i])) != -1) {
+        str[i] = accentsOut[x];
+      }
     }
+    return str.join('');
   }
-  return str.join('');
-}
+
+  changeOrientation() {
+    this.content.resize();
+  }
 }

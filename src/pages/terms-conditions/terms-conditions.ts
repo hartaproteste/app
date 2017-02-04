@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams, Platform } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { NavController, NavParams, Platform, Content } from 'ionic-angular';
 import { HomePage } from '../'
 
 /*
@@ -13,6 +13,7 @@ import { HomePage } from '../'
   templateUrl: 'terms-conditions.html'
 })
 export class TermsConditionsPage {
+  @ViewChild(Content) content: Content;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private platform: Platform) {}
 
@@ -24,7 +25,12 @@ export class TermsConditionsPage {
     localStorage["acceptedtos"] = "true";
     this.navCtrl.setRoot(HomePage);
   }
+
   exit() {
     this.platform.exitApp();
+  }
+
+  changeOrientation() {
+    this.content.resize();
   }
 }
