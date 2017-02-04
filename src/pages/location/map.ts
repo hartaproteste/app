@@ -62,7 +62,7 @@ export class MapPage {
   filterItems() {
     if (this.selectedValue) {
       this.items = this.items.filter((item) => {
-        return (this.removeAccents(item.name.toLowerCase()).indexOf(this.selectedValue.toLowerCase()) > -1);
+        return (this.removeAccents(item.name.toLowerCase()).indexOf(this.removeAccents(this.selectedValue.toLowerCase())) > -1);
       });
     }
   }
