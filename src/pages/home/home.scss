@@ -67,8 +67,31 @@ p {
     padding: 0px 20px 0px 20px;
 }
 
-@media screen and (min-height: 680px) {
+
+@media screen and (max-height: 440px), screen and (min-height: 680px) {
   .home-footer {
-    margin-bottom: 15%
-  }
+        .btn-participa {
+            border: solid 1px black;
+
+            &.btn-secondary {
+                background-color: map-get($colors, secondary);
+            }
+        }
+    }
+}
+
+@media screen and (orientation: landscape) {
+    .home-footer {
+        .primary-section {
+            float: right;
+            width: 50%;
+        }
+
+        .secondary-section {
+            float: left;
+            width: 50%;
+        }
+
+
+    }
 }

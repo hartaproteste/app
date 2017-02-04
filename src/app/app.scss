@@ -72,9 +72,15 @@
     margin-bottom: 10px;
 }
 
+@media screen and (max-height: 440px) {
+  .main-hero {
+    display: none;
+  }
+}
+
 .background-gradient {
     //@include linear-gradient(#ff6b1b, #e9c74b);
-    background:url(../assets/images/bg.png); 
+    background:url(../assets/images/bg.png);
     background-position: center 200px;
 }
 .toolbar-background {

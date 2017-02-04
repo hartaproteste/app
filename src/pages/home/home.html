@@ -48,26 +48,26 @@
 </ion-content>
 <ion-footer class="home-footer">
   <div *ngIf="protestService.queue.length===0 && this.protestService.currentProtest.id>0">
-    <ion-row>
+    <ion-row class="primary-section">
       <ion-col>
         <button ion-button color="danger" block class="btn-participa" (click)="checkIn()">Particip si eu la protest!</button>
       </ion-col>
     </ion-row>
-    <ion-row>
+    <ion-row class="secondary-section">
       <ion-col>
-        <button ion-button block round outline class="btn-participa" (click)="viewMap()">Vezi toate protestele</button>
+        <button ion-button block round outline class="btn-participa btn-secondary" (click)="viewMap()">Vezi toate protestele</button>
       </ion-col>
     </ion-row>
   </div>
   <div *ngIf="protestService.queue.length==0 && this.protestService.currentProtest.id==0">
-    <ion-row>
+    <ion-row class="primary-section">
       <ion-col>
         <button ion-button (click)="clearProtest()" class="btn-participa" block>Am plecat de la acest protest</button>
       </ion-col>
     </ion-row>
-    <ion-row>
+    <ion-row class="secondary-section">
       <ion-col>
-        <button ion-button (click)="viewMap()" class="btn-participa" block round outline>Vezi toate protestele</button>
+        <button ion-button (click)="viewMap()" class="btn-participa  btn-secondary" block round outline>Vezi toate protestele</button>
       </ion-col>
     </ion-row>
   </div>
