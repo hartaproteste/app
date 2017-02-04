@@ -11,7 +11,7 @@ import * as CryptoJS from 'crypto-js';
 @Injectable()
 export class ProtestService {
 
-  public currentProtest: any = { id: 1 };
+  public currentProtest: any = { id: 0 };
   private interval: number;
   private refreshStatusInterval: number;
   private hasHttpError: boolean = false;
@@ -48,6 +48,7 @@ console.log(data);
       .timeout(2000)
       .map(res => res.json()).subscribe(res => {
         this.currentProtest = res;
+        this.currentProtest.id=1;
         if (!this.refreshStatusInterval) {
           this.refreshStatusInterval = setInterval(()=>this.refreshCurrentEvent(), this.config.refreshStatusInterval*1000);
       }},
@@ -64,7 +65,7 @@ console.log(data);
   private refreshCurrentEvent() {
     Geolocation.getCurrentPosition().then(pos => {
       if (this.distance(pos.coords.latitude, pos.coords.longitude, this.currentProtest.lat, this.currentProtest.lon, 'K')>this.config.autoCheckoutDistance/1000) {
-        this.currentProtest = { id: 1 };
+        this.currentProtest = { id: 0 };
         clearInterval(this.refreshStatusInterval);
         this.refreshStatusInterval = undefined;
       }
@@ -94,7 +95,7 @@ console.log(data);
   }
 
   public resetCurrent() {
-    this.currentProtest = { id:1 };
+    this.currentProtest = { id:0 };
     clearInterval(this.refreshStatusInterval);
     this.refreshStatusInterval = undefined;
   }

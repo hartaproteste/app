@@ -6,7 +6,10 @@ import { Geolocation, Device } from 'ionic-native';
 import { UUID } from 'angular2-uuid';
 import * as CryptoJS from 'crypto-js';
 import { MapPage, TermsConditionsPage } from '../index';
+import { Flashlight } from 'ionic-native';
 declare var google: any;
+
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
@@ -16,13 +19,14 @@ declare var google: any;
 })
 export class HomePage {
   @ViewChild(Content) content: Content;
-
+  public isAvailable: boolean;
   private map: any;
   private shout: string;
   constructor(public navCtrl: NavController, private http: HttpClient, private protestService: ProtestService, private platform: Platform) {
-    platform.ready().then(()=>{
+   /* platform.ready().then(()=>{
       this.loadMap();
-    });
+    });*/
+
   }
 
   private ionViewCanEnter() {
