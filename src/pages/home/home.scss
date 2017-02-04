@@ -1,7 +1,7 @@
 h3 {
     color: #000000;
-    font-weight:bold;
-    font-size:24pt;
+    font-weight: bold;
+    font-size: 24pt;
     margin-bottom: 0px;
 }
 
@@ -9,8 +9,7 @@ h3 {
     width: 90%;
     margin: 0px auto; /*background-color: rgba(255,255,255,0.5); border:solid 1px #EEEEEE;*/
     border-radius: 7px;
-    margin-bottom: 10px;
-    padding: 10px;
+    padding: 10px 10px 0px 10px;
 
     .info {
         height: 150px;
@@ -20,12 +19,12 @@ h3 {
         color: rgb(149,149,149);
 
         .value {
-          font-weight: bold;
-          color: white;
+            font-weight: bold;
+            color: white;
         }
 
         img {
-          padding-top: 30px;
+            padding-top: 30px;
         }
     }
 }
@@ -34,7 +33,11 @@ p {
     color: #333333;
 }
 
-.subtitle{ font-size:16pt; color:#333333; margin-bottom:20px }
+.subtitle {
+    font-size: 14pt;
+    color: #333333;
+    margin-bottom: 20px;
+}
 
 
 .secondary-btn {
@@ -42,17 +45,23 @@ p {
 }
 
 .btn-participa {
-    height:50px;
-    font-size:18px;
+    height: 50px;
+    font-size: 18px;
 }
+
 .shout textarea {
     font-size: 20px;
 }
-.main-body .info img { 
-    padding-top:0px;
-    max-height:150px
- }
 
-.main-body .info { 
-    height:initial
+.main-body .info img {
+    padding-top: 0px;
+    max-height: 150px;
+}
+
+.main-body .info {
+    height: initial;
+}
+
+.home-footer {
+    padding: 0px 20px 0px 20px;
 }
