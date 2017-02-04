@@ -1,6 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController, NavParams, Platform, Content } from 'ionic-angular';
 import { HomePage } from '../'
+import { Diagnostic } from 'ionic-native';
+import { LoggerService } from '../../providers/logger.service';
 
 /*
   Generated class for the TermsConditions page.
@@ -15,7 +17,7 @@ import { HomePage } from '../'
 export class TermsConditionsPage {
   @ViewChild(Content) content: Content;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private platform: Platform) {}
+  constructor(public navCtrl: NavController, public navParams: NavParams, private platform: Platform, private log: LoggerService) { }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TermsConditionsPage');
@@ -32,5 +34,14 @@ export class TermsConditionsPage {
 
   changeOrientation() {
     this.content.resize();
+  }
+
+  requireGeoPermission() {
+    //Diagnostic.requestLocationAuthorization().then((res) => {
+    //  this.log.info("permission granted for location");
+    //  this.log.info(res);
+    //}).catch((reason) => {
+    //  this.log.error(reason);
+    //});
   }
 }
