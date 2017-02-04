@@ -11,10 +11,10 @@ export interface IConfig {
 
 export const Config : IConfig = {
   logLevel: 'DEBUG',
-  url: 'https://api.hartapr5oteste.ro',
+  url: 'https://api.hartaproteste.ro',
   sample: true,
   offlinePollingInterval: 10,
-  refreshStatusInterval: 60,
+  refreshStatusInterval: 10,
   autoCheckoutDistance: 1000,
 }
 

@@ -26,9 +26,9 @@ export class ProtestService {
     if (!localStorage['uuid'])
       localStorage['uuid'] = Device.uuid ? Device.uuid : UUID.UUID();
     let uuid = localStorage['uuid'];
-    uuid = btoa(CryptoJS.AES.encrypt(uuid, 'NOWEIMFElmmWJKnwKEJFWNwkjEWNPOF').ciphertext.toString());
+    uuid = btoa(CryptoJS.SHA256(CryptoJS.AES.encrypt(uuid, 'NOWEIMFElmmWJKnwKEJFWNwkjEWNPOF').ciphertext.toString()));
     Geolocation.getCurrentPosition().then((resp) => {
-      var data = {
+      let data = {
         lat: resp.coords.latitude,
         lon: resp.coords.longitude,
         prec: resp.coords.accuracy,
@@ -43,8 +43,7 @@ console.log(data);
   checkIn(data: any) {
     if (this.hasHttpError)
       return;
-    var obs = this.http.post('/', data);
-
+    let obs = this.http.post('/', data);
     obs
       .timeout(2000)
       .map(res => res.json()).subscribe(res => {
@@ -54,7 +53,9 @@ console.log(data);
       }},
       err => {
         console.log(data);
-        this.handleError(data)
+        this.handleError(data);
+        this.refreshStatusInterval = setInterval(()=>this.refreshCurrentEvent(), this.config.refreshStatusInterval*1000);
+
       }
       )
 
@@ -71,8 +72,8 @@ console.log(data);
   }
   private handleError(data) {
     this.hasHttpError = true;
-    console.log(data);
     if (localStorage['queue']) {
+      console.log(this.queue.find(itm => itm.uid === data.uid && itm.ts === data.ts));
       if (!this.queue.find(itm => itm.uid === data.uid && itm.ts === data.ts)) {
         this.queue.push(data);
         localStorage['queue'] = JSON.stringify(this.queue);
@@ -83,7 +84,8 @@ console.log(data);
       }
     }
     else {
-      localStorage['queue'] = JSON.stringify([data]);
+      this.queue = [data];
+      localStorage['queue'] = JSON.stringify(this.queue);
       if (!this.interval)
         this.interval = setInterval(() => {
           this.processQueue();
@@ -98,6 +100,7 @@ console.log(data);
   }
 
   public processQueue() {
+    console.log(this.queue);
     if (localStorage['queue']) {
       this.hasHttpError = false;
       //ping the service
