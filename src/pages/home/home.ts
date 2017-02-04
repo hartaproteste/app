@@ -35,6 +35,6 @@ export class HomePage {
   }
 
   viewMap() {
-    this.navCtrl.setRoot(MapPage);
+    this.navCtrl.push(MapPage);
   }
 }
