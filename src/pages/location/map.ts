@@ -6,7 +6,6 @@ import { CONFIG_TOKEN, IConfig } from '../../providers/config';
 import { HomePage, LocationMapPage } from '../index';
 import { TermsConditionsPage } from '../';
 
-
 @Component({
   selector: 'page-map',
   templateUrl: 'map.html'
@@ -63,7 +62,7 @@ export class MapPage {
   filterItems() {
     if (this.selectedValue) {
       this.items = this.items.filter((item) => {
-        return (item.name.toLowerCase().indexOf(this.selectedValue.toLowerCase()) > -1);
+        return (this.removeAccents(item.name.toLowerCase()).indexOf(this.selectedValue.toLowerCase()) > -1);
       });
     }
   }
@@ -81,4 +80,18 @@ export class MapPage {
   back() {
     this.navCtrl.setRoot(HomePage);
   }
+
+  removeAccents(str) {
+  var accents = 'ÀÁÂÃÄÅàáâãäåÒÓÔÕÕÖØòóôõöøÈÉÊËèéêëðÇçÐÌÍÎÏìíîïÙÚÛÜùúûüÑñŠšŸÿýŽžăîșțâĂÎȘȚÂ';
+  var accentsOut = "AAAAAAaaaaaaOOOOOOOooooooEEEEeeeeeCcDIIIIiiiiUUUUuuuuNnSsYyyZzaistaAISTA";
+  str = str.split('');
+  var strLen = str.length;
+  var i, x;
+  for (i = 0; i < strLen; i++) {
+    if ((x = accents.indexOf(str[i])) != -1) {
+      str[i] = accentsOut[x];
+    }
+  }
+  return str.join('');
+}
 }
