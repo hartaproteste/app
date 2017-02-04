@@ -3,7 +3,9 @@ import { HttpClient } from '../../base';
 import { NavController } from 'ionic-angular';
 import { MapService } from '../../providers/map.service';
 import { CONFIG_TOKEN, IConfig } from '../../providers/config';
-import { HomePage } from '../index';
+import { HomePage, LocationMapPage } from '../index';
+import { TermsConditionsPage } from '../';
+
 
 @Component({
   selector: 'page-map',
@@ -31,6 +33,17 @@ export class MapPage {
       result += item.value;
     }
     return result;
+  }
+
+  openProtestMap(item: any){
+
+    this.navCtrl.push(LocationMapPage, { data: item });
+  }
+
+  private ionViewCanEnter()
+  {
+    if (!localStorage['acceptedtos'])
+      this.navCtrl.setRoot(TermsConditionsPage);
   }
 
   getItems(ev: any) {

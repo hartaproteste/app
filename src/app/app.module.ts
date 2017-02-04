@@ -5,7 +5,9 @@ import { MyApp } from './app.component';
 import { HttpClient } from '../base';
 import {
   HomePage,
-  MapPage
+  MapPage,
+  LocationMapPage,
+  TermsConditionsPage,
 } from '../pages';
 import { CONFIG_TOKEN, Config } from '../providers/config';
 import { LoggerService, ProtestService } from '../providers';
@@ -16,8 +18,10 @@ import { MapService } from '../providers/map.service';
   declarations: [
     MyApp,
     HomePage,
-    MapPage
-  ],
+    MapPage,
+    LocationMapPage,
+    TermsConditionsPage,
+ ],
   imports: [
     IonicModule.forRoot(MyApp)
   ],
@@ -25,7 +29,9 @@ import { MapService } from '../providers/map.service';
   entryComponents: [
     MyApp,
     HomePage,
-    MapPage
+    MapPage,
+    LocationMapPage,
+    TermsConditionsPage,
   ],
   providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler },
     { provide: CONFIG_TOKEN, useValue: Config },
@@ -33,7 +39,7 @@ import { MapService } from '../providers/map.service';
     LoggerService,
     MapService,
     HttpClient,
-    ProtestService
+    ProtestService,
   ]
 })
 export class AppModule { }

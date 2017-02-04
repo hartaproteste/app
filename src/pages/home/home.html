@@ -22,13 +22,13 @@
         </span>
         alături de încă <br />
         <span class="value">
-          {{this.protestService.currentProtest.size}}0000
+          {{this.protestService.currentProtest.size}}
         </span> protestatari
       </ion-col>
     </ion-row>
 
-    <button ion-button (click)="viewMap()" full>Vezi toate protestele</button>  <br />
-    <button ion-button color="secondary" (click)="clearProtest()" full class="secondary-btn">Am plecat de la acest protest</button>
+    <button ion-button (click)="clearProtest()" class="btn-participa" block>Am plecat de la acest protest</button> <br />
+    <button ion-button (click)="viewMap()" class="btn-participa" block round outline>Vezi toate protestele</button> 
   </div>
 
   <div class="main-body" *ngIf="protestService.queue.length>0">

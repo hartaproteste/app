@@ -14,7 +14,7 @@ export const Config : IConfig = {
   url: 'https://api.hartaproteste.ro',
   sample: true,
   offlinePollingInterval: 10,
-  refreshStatusInterval: 60,
+  refreshStatusInterval: 10,
   autoCheckoutDistance: 1000,
 }
 

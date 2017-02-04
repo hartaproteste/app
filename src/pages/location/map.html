@@ -22,7 +22,7 @@
     <ion-searchbar (ionInput)="getItems($event)" [showCancelButton]="True" (keyup.enter)="hitEnter()" placeholder="Caută localitate..."></ion-searchbar>
   </div>
     <ion-list no-lines scroll>
-      <ion-item *ngFor="let item of items" class="city-item">
+      <ion-item *ngFor="let item of items" (click)="openProtestMap(item)" class="city-item">
         <ion-icon name="pin" item-left></ion-icon>
         <span item-left class="name">{{ item.name }}</span>
         <span item-right class="value">{{ item.value | number: '1.0-0' }}</span>
