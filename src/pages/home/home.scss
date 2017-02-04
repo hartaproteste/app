@@ -68,7 +68,7 @@ p {
 }
 
 
-@media screen and (max-height: 440px), screen and (min-height: 680px) {
+@media all and (max-height: 440px), screen and (min-height: 680px) {
   .home-footer {
         .btn-participa {
             border: solid 1px black;
@@ -80,7 +80,7 @@ p {
     }
 }
 
-@media screen and (orientation: landscape) {
+@media all and (orientation: landscape) {
     .home-footer {
         .primary-section {
             float: right;
