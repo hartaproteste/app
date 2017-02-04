@@ -65,3 +65,9 @@ p {
 .home-footer {
     padding: 0px 20px 0px 20px;
 }
+
+@media screen and (min-height: 680px) {
+  .home-footer {
+    margin-bottom: 15%
+  }
+}
