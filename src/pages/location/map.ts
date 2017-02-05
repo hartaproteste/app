@@ -26,6 +26,7 @@ export class MapPage {
   }
 
   initializeItems() {
+    this.items = this.protestService.protests;
     this.total = this.getTotal();
   }
 
@@ -80,6 +81,11 @@ export class MapPage {
 
   back() {
     this.navCtrl.setRoot(HomePage);
+  }
+
+  onCancel(ev: any) {
+    this.selectedValue = "";
+    this.getItems(ev);
   }
 
   removeAccents(str) {
