@@ -3,6 +3,7 @@ import { NavController, NavParams, Platform, Content } from 'ionic-angular';
 import { HomePage } from '../'
 import { Diagnostic } from 'ionic-native';
 import { LoggerService } from '../../providers/logger.service';
+import { Geolocation } from 'ionic-native';
 
 /*
   Generated class for the TermsConditions page.
@@ -24,8 +25,10 @@ export class TermsConditionsPage {
   }
 
   acceptTos() {
-    localStorage["acceptedtos"] = "true";
-    this.navCtrl.setRoot(HomePage);
+    this.requireGeoPermission().then(() => {
+      localStorage["acceptedtos"] = "true";
+      this.navCtrl.setRoot(HomePage);
+    });
   }
 
   exit() {
@@ -37,11 +40,15 @@ export class TermsConditionsPage {
   }
 
   requireGeoPermission() {
-    //Diagnostic.requestLocationAuthorization().then((res) => {
-    //  this.log.info("permission granted for location");
-    //  this.log.info(res);
-    //}).catch((reason) => {
-    //  this.log.error(reason);
-    //});
+    return new Promise((resolve, reject) => {
+      Geolocation.getCurrentPosition().then(pos => {
+        this.log.info(pos);
+        resolve();
+      }).catch((reason) => {
+        this.log.error(reason);
+        reject();
+      });
+    })
+
   }
 }
