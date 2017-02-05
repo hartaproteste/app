@@ -81,7 +81,7 @@
 .background-gradient {
     //@include linear-gradient(#ff6b1b, #e9c74b);
     background:url(../assets/images/bg.png);
-    background-position: center 200px;
+    background-position: center top;
 }
 .toolbar-background {
     background-color:#0066ff;
@@ -90,4 +90,13 @@
 .toolbar-title, .bar-buttons button, .toolbar button { color:#FFFFFF }
 .button-inner {
     font-weight: bold;
+}
+
+.total-row {
+    background-color: black;
+    color: white;
+    font-size: 24px;
+    .value {
+        font-weight: bold;
+    }
 }

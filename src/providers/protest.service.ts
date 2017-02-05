@@ -11,11 +11,25 @@ import * as CryptoJS from 'crypto-js';
 @Injectable()
 export class ProtestService {
 
-  public currentProtest: any = { id: 1 };
+  public currentProtest: any = {  };
   private interval: number;
   private refreshStatusInterval: number;
   private hasHttpError: boolean = false;
   public queue: any[] = [];
+  public protests: any[] = [
+    { id:1,
+      name: 'Bucuresti',
+      lat: 44.4527896,
+      lon: 26.085974,
+      count: 100000,
+    },
+    { id:1,
+      name: 'Timisoara',
+      lat: 45.7528699,
+      lon: 21.2228099,
+      count: 20000,
+    }
+  ];
 
   constructor(private http: HttpClient, @Inject(CONFIG_TOKEN) private config: IConfig, private zone: NgZone) {
     if (localStorage['queue'])
@@ -47,6 +61,7 @@ console.log(data);
     obs
       .timeout(2000)
       .map(res => res.json()).subscribe(res => {
+        res.id=1;
         this.currentProtest = res;
         if (!this.refreshStatusInterval) {
           this.refreshStatusInterval = setInterval(()=>this.refreshCurrentEvent(), this.config.refreshStatusInterval*1000);
@@ -64,7 +79,7 @@ console.log(data);
   private refreshCurrentEvent() {
     Geolocation.getCurrentPosition().then(pos => {
       if (this.distance(pos.coords.latitude, pos.coords.longitude, this.currentProtest.lat, this.currentProtest.lon, 'K')>this.config.autoCheckoutDistance/1000) {
-        this.currentProtest = { id: 1 };
+        this.currentProtest = { };
         clearInterval(this.refreshStatusInterval);
         this.refreshStatusInterval = undefined;
       }
@@ -94,7 +109,7 @@ console.log(data);
   }
 
   public resetCurrent() {
-    this.currentProtest = { id:1 };
+    this.currentProtest = {  };
     clearInterval(this.refreshStatusInterval);
     this.refreshStatusInterval = undefined;
   }

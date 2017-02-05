@@ -1,7 +1,7 @@
 ﻿import { Component, Inject, Renderer, ViewChild } from '@angular/core';
 import { HttpClient } from '../../base';
-import { NavController, Content } from 'ionic-angular';
-import { MapService } from '../../providers/map.service';
+import { NavController, Content, App } from 'ionic-angular';
+import { ProtestService } from '../../providers';
 import { CONFIG_TOKEN, IConfig } from '../../providers/config';
 import { HomePage, LocationMapPage } from '../index';
 import { TermsConditionsPage } from '../';
@@ -21,26 +21,24 @@ export class MapPage {
   selectedValue: string;
 
 
-  constructor(public navCtrl: NavController, private http: HttpClient, private mapService: MapService, private renderer: Renderer) {
+  constructor(public navCtrl: NavController, private http: HttpClient, private renderer: Renderer, private protestService: ProtestService, private app: App) {
     this.initializeItems();
   }
 
   initializeItems() {
-    this.items = this.mapService.getCities();
     this.total = this.getTotal();
   }
 
   getTotal(): number {
     var result = 0;
-    for (let item of this.items) {
-      result += item.value;
+    for (let item of this.protestService.protests) {
+      result += item.count;
     }
     return result;
   }
 
   openProtestMap(item: any) {
-
-    this.navCtrl.push(LocationMapPage, { data: item });
+    this.navCtrl.setRoot(HomePage, {selectedProtest: item});
   }
 
   private ionViewCanEnter() {

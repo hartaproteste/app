@@ -1,14 +1,19 @@
 ﻿<ion-header>
   <ion-navbar class="navbar">
-    <button ion-button menuToggle right>
+    <button ion-button menuToggle start>
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Harta proteste</ion-title>
+    <ion-buttons end>
+      <button (click)="openLocations()" right ion-button><ion-icon name="search"></ion-icon></button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content class="background-gradient home">
-  <div class="main-body" *ngIf="protestService.queue.length==0 && this.protestService.currentProtest.id==0">
+        <div id="map" style="width:100%; height:100%;"></div>
+
+  <div class="main-body" *ngIf="protestService.queue.length==0 && this.protestService.currentProtest.id>0">
     <ion-row class="info">
       <ion-col width-33 style="padding:20px 0px" text-center>
         <img src="assets/images/fist.png" />
@@ -16,12 +21,12 @@
       <ion-col width-67 style="padding:20px 0px">
         Protestezi în <br />
         <span class="value">
-          {{this.protestService.currentProtest.city}}
-          Piatra Neamt
+          {{this.protestService.currentProtest.type}}
+          {{this.protestService.currentProtest.name}}
         </span>
         alături de încă <br />
         <span class="value">
-          {{this.protestService.currentProtest.size}}
+          {{this.protestService.currentProtest.count}}
         </span> protestatari
       </ion-col>
     </ion-row>
@@ -35,8 +40,7 @@
     Datele vor fi trimise cand conexiunea va fi restabilita.
   </div>
 
-  <div class="main-body" text-center *ngIf="protestService.queue.length===0 && this.protestService.currentProtest.id>0">
-      <div id="map" style="width:100%; height:200px;"></div>
+  <div class="main-body" text-center *ngIf="protestService.queue.length===0 && this.protestService.currentProtest.id==0">
 
     <h3>Implica-te!</h3>
     <p class="subtitle">
@@ -47,8 +51,18 @@
     </ion-item>
   </div>
 </ion-content>
-<ion-footer class="home-footer">
-  <div *ngIf="protestService.queue.length===0 && this.protestService.currentProtest.id>0">
+<ion-footer>
+  <div *ngIf="protestService.queue.length===0 && !this.protestService.currentProtest.id && selectedProtest.id">
+        <ion-row class="total-row">
+          <ion-col width-50>
+          <ion-icon name="location"></ion-icon>
+          {{selectedProtest.name}}
+          </ion-col>
+          <ion-col width-50 class="value" text-right>
+          {{selectedProtest.count | number: '1.0-0' }}
+          </ion-col>
+        </ion-row>
+<div  class="home-footer">
     <ion-row class="primary-section">
       <ion-col>
         <button ion-button color="danger" block class="btn-participa" (click)="checkIn()">Particip si eu la protest!</button>
@@ -56,11 +70,12 @@
     </ion-row>
     <ion-row class="secondary-section">
       <ion-col>
-        <button ion-button block round outline class="btn-participa btn-secondary" (click)="viewMap()">Vezi toate protestele</button>
+        <button style="display:none" ion-button block round outline class="btn-participa btn-secondary" (click)="viewMap()">Vezi toate protestele</button>
       </ion-col>
     </ion-row>
+</div>
   </div>
-  <div *ngIf="protestService.queue.length==0 && this.protestService.currentProtest.id==0">
+  <div *ngIf="protestService.queue.length==0 && this.protestService.currentProtest.id">
     <ion-row class="primary-section">
       <ion-col>
         <button ion-button (click)="clearProtest()" class="btn-participa" block>Am plecat de la acest protest</button>
@@ -68,7 +83,7 @@
     </ion-row>
     <ion-row class="secondary-section">
       <ion-col>
-        <button ion-button (click)="viewMap()" class="btn-participa  btn-secondary" block round outline>Vezi toate protestele</button>
+        <button style="display:none" ion-button (click)="viewMap()" class="btn-participa  btn-secondary" block round outline>Vezi toate protestele</button>
       </ion-col>
     </ion-row>
   </div>
