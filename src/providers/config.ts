@@ -15,7 +15,7 @@ export const Config : IConfig = {
   sample: true,
   offlinePollingInterval: 10,
   refreshStatusInterval: 10,
-  autoCheckoutDistance: 1000,
+  autoCheckoutDistance: 10000,
 }
 
 export const CONFIG_TOKEN = new OpaqueToken('config_mobile');

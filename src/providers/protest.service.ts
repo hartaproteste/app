@@ -28,6 +28,12 @@ export class ProtestService {
       lat: 45.7528699,
       lon: 21.2228099,
       count: 20000,
+    },
+    { id:1,
+      name: 'Timisoara',
+      lat: 44.4152703,
+      lon: 26.1453874,
+      count: 3,
     }
   ];
 
