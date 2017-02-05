@@ -1,4 +1,5 @@
-import { Component, ViewChild, NgZone, Input } from '@angular/core';
+import { Component, Inject, ViewChild, NgZone, Input } from '@angular/core';
+import { CONFIG_TOKEN, IConfig } from '../../providers/config';
 import { HttpClient } from '../../base';
 import { NavController, Content, Platform, NavParams } from 'ionic-angular';
 import { ProtestService } from '../../providers';
@@ -20,10 +21,15 @@ export class HomePage {
   @Input()
   private selectedProtest: any = {};
   private map: any;
+  private location: any;
   private shout: string;
+  private zoomedOut: boolean;
+  private nearbyProtest: any = {};
+  private selectedProtestInRange: boolean;
+  private selectedFirstProtest: boolean;
   private mapCenter = new google.maps.LatLng(45.9216941, 25.0069466);
-
-  constructor(public navCtrl: NavController, private http: HttpClient, private protestService: ProtestService, private platform: Platform, private zone: NgZone, public params: NavParams) {
+  private userMarker: any;
+  constructor(public navCtrl: NavController, private http: HttpClient, private protestService: ProtestService, private platform: Platform, private zone: NgZone, public params: NavParams, @Inject(CONFIG_TOKEN) private config: IConfig) {
     this.selectedProtest = params.get('selectedProtest') || {};
     platform.ready().then(() => {
       this.loadMap();
@@ -52,9 +58,9 @@ export class HomePage {
     this.content.resize();
   }
 
-openLocations(){
-  this.navCtrl.setRoot(MapPage);
-}
+  openLocations() {
+    this.navCtrl.setRoot(MapPage);
+  }
 
   loadMap() {
 
@@ -64,16 +70,29 @@ openLocations(){
       zoom: zoom,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       streetViewControlOptions: {
-              position: google.maps.ControlPosition.RIGHT_TOP
-          },
+        position: google.maps.ControlPosition.RIGHT_TOP
+      },
       zoomControlOptions: {
-              position: google.maps.ControlPosition.RIGHT_TOP
-          },
+        position: google.maps.ControlPosition.RIGHT_TOP
+      },
     }
     let map = document.getElementById('map');
     this.map = new google.maps.Map(map, mapOptions);
     this.drawProtests();
-    this.selectProtest(this.selectedProtest);
+    Geolocation.watchPosition().subscribe((location) => {
+      this.location = location;
+      if (this.location)
+        this.userMarker = new google.maps.Marker({
+          position: new google.maps.LatLng(this.location.coords.latitude, this.location.coords.longitude),
+          map: this.map,
+        });
+
+
+      if (!this.selectedProtest.id) {
+        this.selectProtest(this.selectedProtest);
+      }
+
+    });
   }
 
   drawProtests() {
@@ -95,30 +114,49 @@ openLocations(){
       });
       protest.marker.addListener('click', () => {
         this.selectProtest(protest);
-      
       });
 
     });
 
 
-    this.map.addListener('zoom_changed', () => {
-      // 3 seconds after the center of the map has changed, pan back to the
-      // marker.
-        if (this.map.zoom <= 12 && this.selectedProtest.id) {
-            this.selectProtest({});
-        }
-    
-    });
-  } 
+  }
 
   selectProtest(protest) {
-        this.zone.run(() => {
-          this.map.setCenter(protest.id ? protest.marker.position : this.mapCenter);
-          this.map.setZoom(protest.id ? 15 : 6);
-          this.selectedProtest = protest;
-          console.log(this.selectedProtest);
+    this.zone.run(() => {
+      if (protest.id && this.location) {
+        if (this.protestService.distance(this.location.coords.latitude, this.location.coords.longitude, protest.lat, protest.lon, 'K') < this.config.autoCheckoutDistance / 1000) {
+          this.selectedProtestInRange=true;
+      } 
+      else {
+        this.selectedProtestInRange = false;
+      }
+      }
+
+      if (!protest.id && this.location) {
+
         
-        });
+        if (this.protestService.distance(this.location.coords.latitude, this.location.coords.longitude, protest.lat, protest.lon, 'K') < this.config.autoCheckoutDistance / 1000) {
+          this.nearbyProtest = protest;
+        } else {
+          this.nearbyProtest = this.protestService.protests.find(itm => this.protestService.distance(this.location.coords.latitude, this.location.coords.longitude, itm.lat, itm.lon, 'K') < this.config.autoCheckoutDistance / 1000) || {};
+        }
+      }
+
+      if (this.nearbyProtest.id && !protest.id && this.location) {
+        var bounds = new google.maps.LatLngBounds();
+        bounds.extend(new google.maps.LatLng(this.location.coords.latitude, this.location.coords.longitude));
+
+        bounds.extend(new google.maps.LatLng(this.nearbyProtest.lat, this.nearbyProtest.lon));
+        this.map.fitBounds(bounds);
+        this.selectedProtestInRange=true;
+        protest = this.nearbyProtest || {};
+      }
+      else {
+        this.map.setCenter(protest.id ? protest.marker.position : this.mapCenter);
+        this.map.setZoom(protest.id ? 15 : 6);
+      }
+      this.selectedProtest = protest;
+    });
   }
   pinSymbol(color) {
     return {
