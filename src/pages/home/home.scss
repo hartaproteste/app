@@ -36,18 +36,17 @@ h3 {
     height: initial;
 }
 
-ion-footer{
-    
-       background:url(../assets/images/bg.png);
+ion-footer {
+    background: url(../assets/images/bg.png);
 }
+
 .home-footer {
     padding: 5px 20px 0px 20px;
-
 }
 
 
 @media all and (max-height: 440px), screen and (min-height: 680px) {
-  .home-footer {
+    .home-footer {
         .btn-participa {
             border: solid 1px black;
 
@@ -69,7 +68,17 @@ ion-footer{
             float: left;
             width: 50%;
         }
+    }
+}
 
+.home-map {
+    width: 100%;
 
+    &.full {
+        height: 100%;
+    }
+
+    &.half {
+        height: 50%;
     }
 }

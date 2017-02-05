@@ -17,6 +17,9 @@ declare var google: any;
 export class HomePage {
   @ViewChild(Content) content: Content;
 
+  cssMap: string;
+  height: string;
+
   @Input()
   private selectedProtest: any = {};
   private map: any;
@@ -28,6 +31,7 @@ export class HomePage {
     platform.ready().then(() => {
       this.loadMap();
     });
+    this.cssMap = "full";
   }
 
   private ionViewCanEnter() {
@@ -52,9 +56,9 @@ export class HomePage {
     this.content.resize();
   }
 
-openLocations(){
-  this.navCtrl.setRoot(MapPage);
-}
+  openLocations() {
+    this.navCtrl.setRoot(MapPage);
+  }
 
   loadMap() {
 
@@ -64,11 +68,11 @@ openLocations(){
       zoom: zoom,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       streetViewControlOptions: {
-              position: google.maps.ControlPosition.RIGHT_TOP
-          },
+        position: google.maps.ControlPosition.RIGHT_TOP
+      },
       zoomControlOptions: {
-              position: google.maps.ControlPosition.RIGHT_TOP
-          },
+        position: google.maps.ControlPosition.RIGHT_TOP
+      },
     }
     let map = document.getElementById('map');
     this.map = new google.maps.Map(map, mapOptions);
@@ -95,7 +99,7 @@ openLocations(){
       });
       protest.marker.addListener('click', () => {
         this.selectProtest(protest);
-      
+
       });
 
     });
@@ -104,21 +108,33 @@ openLocations(){
     this.map.addListener('zoom_changed', () => {
       // 3 seconds after the center of the map has changed, pan back to the
       // marker.
-        if (this.map.zoom <= 12 && this.selectedProtest.id) {
-            this.selectProtest({});
-        }
-    
+      if (this.map.zoom <= 12 && this.selectedProtest.id) {
+        this.selectProtest({});
+      }
+
     });
-  } 
+  }
 
   selectProtest(protest) {
-        this.zone.run(() => {
-          this.map.setCenter(protest.id ? protest.marker.position : this.mapCenter);
-          this.map.setZoom(protest.id ? 15 : 6);
-          this.selectedProtest = protest;
-          console.log(this.selectedProtest);
-        
-        });
+    this.zone.run(() => {
+      this.selectedProtest = protest;
+      console.log(this.selectedProtest);
+
+
+      this.map.setCenter(protest.id ? protest.marker.position : this.mapCenter);
+      this.map.setZoom(protest.id ? 15 : 6);
+
+      if (this.selectedProtest.id) {
+        let cent = this.map.getCenter();
+        this.cssMap = "half";
+
+        google.maps.event.trigger(this.map, "resize");
+        this.map.setCenter(cent);
+      }
+
+
+
+    });
   }
   pinSymbol(color) {
     return {

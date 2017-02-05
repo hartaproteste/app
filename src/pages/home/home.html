@@ -11,7 +11,7 @@
 </ion-header>
 
 <ion-content class="background-gradient home">
-        <div id="map" style="width:100%; height:100%;"></div>
+  <div id="map" class="home-map {{ cssMap }}" ></div>
 
   <div class="main-body" *ngIf="protestService.queue.length==0 && this.protestService.currentProtest.id>0">
     <ion-row class="info">
@@ -53,27 +53,27 @@
 </ion-content>
 <ion-footer>
   <div *ngIf="protestService.queue.length===0 && !this.protestService.currentProtest.id && selectedProtest.id">
-        <ion-row class="total-row">
-          <ion-col width-50>
-          <ion-icon name="location"></ion-icon>
-          {{selectedProtest.name}}
-          </ion-col>
-          <ion-col width-50 class="value" text-right>
-          {{selectedProtest.count | number: '1.0-0' }}
-          </ion-col>
-        </ion-row>
-<div  class="home-footer">
-    <ion-row class="primary-section">
-      <ion-col>
-        <button ion-button color="danger" block class="btn-participa" (click)="checkIn()">Particip si eu la protest!</button>
+    <ion-row class="total-row">
+      <ion-col width-50>
+        <ion-icon name="location"></ion-icon>
+        {{selectedProtest.name}}
+      </ion-col>
+      <ion-col width-50 class="value" text-right>
+        {{selectedProtest.count | number: '1.0-0' }}
       </ion-col>
     </ion-row>
-    <ion-row class="secondary-section">
-      <ion-col>
-        <button style="display:none" ion-button block round outline class="btn-participa btn-secondary" (click)="viewMap()">Vezi toate protestele</button>
-      </ion-col>
-    </ion-row>
-</div>
+    <div class="home-footer">
+      <ion-row class="primary-section">
+        <ion-col>
+          <button ion-button color="danger" block class="btn-participa" (click)="checkIn()">Particip si eu la protest!</button>
+        </ion-col>
+      </ion-row>
+      <ion-row class="secondary-section">
+        <ion-col>
+          <button ion-button block round outline class="btn-participa btn-secondary" (click)="viewMap()">Vezi toate protestele</button>
+        </ion-col>
+      </ion-row>
+    </div>
   </div>
   <div *ngIf="protestService.queue.length==0 && this.protestService.currentProtest.id">
     <ion-row class="primary-section">
